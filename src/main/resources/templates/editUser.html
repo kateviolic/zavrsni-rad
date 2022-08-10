@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.tymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text = "${'Edit ' + user.firstName + ' ' + user.lastName}"></title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+	crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-expand navbar-dark" style="background-color:#3f0d27">
+	<div class="container-fluid">
+		<a class="navbar-brand" style="color:white; padding-left:5px; padding-right:20px"> OENOPHILIA </a>
+	    <ul class="navbar-nav mr-auto ">
+	    	<li class="">
+	        	<a class="nav-link" href="/">Home </a>
+	    	</li>
+	    		    	<li class="nav">
+	        	<a class="nav-link" href="/wine">Wines</a>
+	    	</li>
+	    	<li class="nav">
+	        	<a class="nav-link" href="/wineries">Wineries</a>
+	    	</li>
+	    	<li class="active">
+	        	<a class="nav-link" href="/profile"> Hi <span th:text = "${user.username}"></span> ! <span class="sr-only">(current)</span></a>
+	     	</li>
+	    </ul>
+	    <ul class="navbar-nav">
+	     	<li class="nav-item">
+	        	<a class="nav-link" href="/logout">Logout</a>
+	      	</li>
+	     </ul>
+	     </div>
+</nav>
+
+
+<header class="py-5" style="background-color:#6B1533">
+	<span th:if="${message}">
+	<div class = "container">
+		<div class="alert alert-light" style="background-color:#791a35; color:white" th:text = "${message}"></div><br><br>
+	</div>
+	</span>
+	<div class="container px-4 px-lg-5 my-5">
+		<div class="text-center text-white">
+			<h1 class="display-4 fw-bolder"><span th:text = "${user.firstName + ' ' + user.lastName}"></span></h1>
+			<p class="lead fw-normal text-white-50 mb-0">Edit</p>
+		</div>
+	</div>
+</header>
+
+
+<section class="py-5">
+	<div class="container-fluid" style= "float:left; margin-left:10%; margin-top:2%; width:80%">
+	<div th:if="${param.error}">
+	    <div class="alert alert-danger">Your input was invalid. Please try again.              	
+	    </div>
+	</div>
+	
+	<div th:if="${param.usernameError}">
+	    <div class="alert alert-danger">This username is already taken.           	
+	    </div>
+	</div>
+	
+	<div th:if="${param.emailError}">
+	    <div class="alert alert-danger">User with this email already exists.          	
+	    </div>
+	</div>
+	
+	<form class="form-check  my-2 my-lg-0" th:object="${user}" th:action="@{/profile/save}" method="post">
+	
+		<div class="form-group">
+		<label class="control-label" for="username">Username: </label>
+			<input type="text" class="form-control" id="username" name="username" th:field="*{username}"/>
+			<p th:if="${#fields.hasErrors('username')}" th:errorclass="error" th:errors="*{username}" style="color:red;" />
+		</div>
+		<div class="form-group">
+		<label class="control-label" for="email">E-mail: </label>
+			<input type="email" class="form-control" id="email" name="email" th:field="*{email}"/>
+			<p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" style="color:red;" />
+		</div>
+           <div class="form-group">
+    	<label class="control-label" for="firstName">First name: </label>
+			<input type="text" class="form-control" id="firstName" name="firstName" th:field="*{firstName}"/>
+			<p th:if="${#fields.hasErrors('firstName')}" th:errorclass="error" th:errors="*{firstName}" style="color:red;" />
+		</div>
+		<div class="form-group">
+		<label class="control-label" for="lastName">Last name: </label>
+			<input type="text" class="form-control" id="lastName" name="lastName" th:field="*{lastName}"/>
+			<p th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" th:errors="*{lastName}" style="color:red;" />
+		</div>
+		<div class="form-group">
+		<label class="control-label" for="role"> Male </label>
+               <input type="radio" class="form-control" name="imgsel" value="false" checked="checked" th:field="*{gender}"/>
+           <label class="control-label" for="role"> Female </label>
+               <input type="radio" class="form-control" name="imgsel" value="true" th:field="*{gender}"/>
+           </div>
+      		<div class="form-group">
+               <label for="description">Please write a few words about you: </label><br>
+​			<textarea id="txtArea" rows="3" cols="160" input type="text" th:field= "*{description}"></textarea><br>
+           </div>
+           <br><br>
+		<div class="container-fluid" style="float:right; margin:10px">
+			<input type="hidden" id="id" name="id" value="${id}" th:field="*{id}"/>
+			<input type="hidden" id="role" name="role" value="${role}" th:field="*{role}"/>
+			<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Submit</button>
+		</div>
+	</form>
+	</div>
+
+</section>
+
+
+
+</body>
+</html>

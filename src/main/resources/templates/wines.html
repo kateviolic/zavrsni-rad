@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.tymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Wines</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+	crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-expand navbar-dark" style="background-color:#3f0d27">
+	<div class="container-fluid">
+		<a class="navbar-brand" style="color:white; padding-left:5px; padding-right:20px"> OENOPHILIA </a>
+	    <ul class="navbar-nav mr-auto ">
+	    	<li class="nav">
+	        	<a class="nav-link" href="/">Home</a>
+	    	</li>
+	    	<li class="active">
+	        	<a class="nav-link" href="/wine">Wines <span class="sr-only">(current)</span></a>
+	    	</li>
+	    	<li class="nav">
+	        	<a class="nav-link" href="/wineries">Wineries</a>
+	    	</li>
+	    	<li class="nav-item my-2 my-lg-0 ml">
+	        	<a class="nav-link" href="/profile"> Hi <span th:text = "${user.username}"></span> !</a>
+	     	</li>
+	    </ul>
+	    <ul class="navbar-nav">
+	     	<li class="nav-item">
+	        	<a class="nav-link" href="/logout">Logout</a>
+	      	</li>
+	     </ul>
+	     </div>
+</nav>
+
+
+
+<header class="py-5" style="background-color:#6B1533">
+	<div class="container px-4 px-lg-5 my-5">
+		<div class="text-center text-white">
+			<h1 class="display-4 fw-bolder">Wines</h1>
+			<p class="lead fw-normal text-white-50 mb-0"> Use filters to find your desired wine</p>
+		</div>
+	</div>
+</header>
+        
+<section class="py-5">
+	
+	<div style="margin-left: 10%; margin-right: 10%;">
+	
+	<form class="form-check  my-2 my-lg-0" th:object="${wineDto}" th:action="@{/wine/filter}" method="get">
+		
+		<select th:field="*{winery}">
+			<option th:value="'All'" th:text="' Winery'" style="font-weight: bold;"></option>
+			<option th:each = "winery: ${winery}" th:value="${winery.username}" th:text="${winery.firstName + ' ' + winery.lastName}"></option>
+		</select>
+		
+		&ensp;
+		
+		<select th:field="*{variety}">
+			<option th:value="'All'" th:text="' Variety'" style="font-weight: bold;"></option>
+			<option th:each = "variety: ${variety}" th:value="${variety}" th:text="${variety}"></option>
+		</select>
+		
+		&ensp;
+		
+		<select th:field="*{year}">
+			<option th:value="0" th:text="' Year'" style="font-weight: bold;"></option>
+			<option th:each = "year: ${year}" th:value="${year}" th:text="${year}"></option>
+		</select>
+		&ensp;
+		
+		<select th:field="*{type}">
+			<option th:value="'All'" th:text="' Type'" style="font-weight: bold;"></option>
+			<option th:value="'Red'" th:text="' Red '"></option>
+			<option th:value="'White'" th:text=" White"></option>
+			<option th:value="'Rose'" th:text=" Rose"></option>
+			<option th:value="'Orange'" th:text="' Orange'"></option>
+			<option th:value="'Sparkling'" th:text="' Sparkling'"></option>
+			<option th:value="'Dessert'" th:text=" Dessert"></option>
+		</select>
+		
+		&ensp;
+		
+		<select th:field="*{position}">
+			<option th:value="'All'" th:text="' Position'" style="font-weight: bold;"></option>
+			<option th:value="'Pelješac'" th:text="' Pelješko vinogorje '"></option>
+			<option th:value="'Dingač'" th:text=" Dingač"></option>
+			<option th:value="'Postup'" th:text=" Postup"></option>
+			<option th:value="'Korčula'" th:text="' Korčulansko vinogorje'"></option>
+		</select>
+		
+		&ensp;
+		
+		<select th:field="*{sweetness}">
+			<option th:value="'All'" th:text="' Sweetness'" style="font-weight: bold;"></option>
+			<option th:value="'Dry'" th:text=" Dry"></option>
+			<option th:value="'Medium dry'" th:text="' Medium dry'"></option>
+			<option th:value="'Medium sweet'" th:text="' Medium sweet'"></option>
+			<option th:value="'Sweet'" th:text="' Sweet '"></option>
+		</select>
+		
+		&ensp;
+		
+		<button class="btn btn-outline-light my-2 my-sm-0" type="submit" style="background-color:#6B1533">Search</button>
+				
+		
+	</form>
+	
+	<span th:if="${empty == true}"><br><br><h4>No wines found.</h4></span>
+	
+	</div>
+	
+<br><br><br>
+	
+	<div style="margin-left: 10%; margin-right: 10%;">
+		
+		<div style="display:flex; flex-wrap: wrap; flex-direction:row;">
+		<th:block th:each = "wine: ${wines}" >
+			<div style="display: block; margin:auto; flex:25%; padding-bottom:3%">
+				<a th:href="@{/wine/{id}(id=${wine.id})}" ><img th:src="${wine.picture}" style="height:300px; width:300px; object-fit: cover; margin:auto;"/></a>
+			</div>
+		</th:block>
+		</div>
+		
+	</div>
+	
+
+	
+
+</section>
+
+
+</body>
+</html>
