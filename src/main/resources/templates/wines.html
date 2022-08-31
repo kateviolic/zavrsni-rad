@@ -103,6 +103,17 @@
 		
 		&ensp;
 		
+		<select th:field="*{rating}">
+			<option th:value="'0.0'" th:text="' Rating'" style="font-weight: bold;"></option>
+			<option th:value="'1.0'" th:text=" 1"></option>
+			<option th:value="'2.0'" th:text=" 2"></option>
+			<option th:value="'3.0'" th:text="' 3'"></option>
+			<option th:value="'4.0'" th:text="' 4'"></option>
+			<option th:value="'5.0'" th:text="' 5'"></option>
+		</select>
+		
+		&ensp;
+		
 		<button class="btn btn-outline-light my-2 my-sm-0" type="submit" style="background-color:#6B1533">Search</button>
 				
 		

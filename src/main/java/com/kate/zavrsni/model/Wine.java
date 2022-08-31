@@ -22,8 +22,8 @@ public class Wine {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "wine")
-	//private Set<Review> reviews;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "wine")
+	private Set<Review> reviews;
 	
 	@NotEmpty(message = "Must have a name.")
 	@Column(length = 100, nullable = false)
@@ -85,6 +85,8 @@ public class Wine {
 	@Column(nullable = false, length = 10000)
 	private String picture;
 	
+	@Column(nullable = false)
+	private Double rating = 0.0;
 	
 	public Wine() {
 		super();
@@ -104,7 +106,7 @@ public class Wine {
 			@NotEmpty(message = "Must enter sweetness.") String sweetness,
 			@NotEmpty(message = "Must enter notes.") String note,
 			@NotEmpty(message = "Must enter food pairing.") String foodPairing,
-			@NotEmpty String picture) {
+			@NotEmpty String picture, Double rating) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -122,6 +124,7 @@ public class Wine {
 		this.note = note;
 		this.foodPairing = foodPairing;
 		this.picture = picture;
+		this.rating = rating;
 	}
 
 
@@ -281,6 +284,26 @@ public class Wine {
 
 	public void setPicture(String picture) {
 		this.picture = picture;
+	}
+
+
+	public Set<Review> getReviews() {
+		return reviews;
+	}
+
+
+	public void setReviews(Set<Review> reviews) {
+		this.reviews = reviews;
+	}
+
+
+	public Double getRating() {
+		return rating;
+	}
+
+
+	public void setRating(Double rating) {
+		this.rating = rating;
 	}
 	
 	

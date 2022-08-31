@@ -1,73 +1,57 @@
-package com.kate.zavrsni.model;
+package com.kate.zavrsni.dto;
 
 import java.time.LocalDate;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Entity
-public class Review {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
-	
-	@ManyToOne
-	@JoinColumn(name = "wine_id")
-	private Wine wine;
-	
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+public class ReviewDto {
+
+	@NotNull
+	@NotEmpty
+	private int wineId;
 	
 	@NotNull
+	@NotEmpty
 	private Double rating;
 	
 	@Column(nullable = false)
 	private LocalDate date;
 	
-	private Boolean fruit;
+	private Boolean fruit = false;
 	
-	private Boolean herbal;
-	
-	private Boolean floral;
-	
-	private Boolean butter;
-	
-	private Boolean nuts;
-	
-	private Boolean yeast;
-	
-	private Boolean vanilla;
-	
-	private Boolean coconut;
-	
-	private Boolean spices;
-	
-	private Boolean toasted;
-	
-	private Boolean cigarBox;
-	
-	private Boolean tobacco;
-	
-	private Boolean leather;
-	
-	private Boolean driedFruit;
+	private Boolean herbal = false;
 
-	public Review(int id, User user, Wine wine, Double rating, LocalDate date, Boolean fruit, Boolean herbal, Boolean floral, Boolean butter,
-			Boolean nuts, Boolean yeast, Boolean vanilla, Boolean coconut, Boolean spices, Boolean toasted,
-			Boolean cigarBox, Boolean tobacco, Boolean leather, Boolean driedFruit) {
+	private Boolean floral = false;
+
+	private Boolean butter = false;
+
+	private Boolean nuts = false;
+
+	private Boolean yeast = false;
+
+	private Boolean vanilla = false;
+
+	private Boolean coconut = false;
+
+	private Boolean spices = false;
+
+	private Boolean toasted = false;
+	
+	private Boolean cigarBox = false;
+
+	private Boolean tobacco = false;
+
+	private Boolean leather = false;
+
+	private Boolean driedFruit = false;
+
+	public ReviewDto(@NotNull @NotEmpty int wineId, @NotNull @NotEmpty Double rating, LocalDate date, Boolean fruit, Boolean herbal,
+			Boolean floral, Boolean butter, Boolean nuts, Boolean yeast, Boolean vanilla, Boolean coconut,
+			Boolean spices, Boolean toasted, Boolean cigarBox, Boolean tobacco, Boolean leather, Boolean driedFruit) {
 		super();
-		this.id = id;
-		this.user = user;
-		this.wine = wine;
+		this.wineId = wineId;
 		this.rating = rating;
 		this.date = date;
 		this.fruit = fruit;
@@ -86,32 +70,16 @@ public class Review {
 		this.driedFruit = driedFruit;
 	}
 
-	public Review() {
+	public ReviewDto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getId() {
-		return id;
+	public int getWineId() {
+		return wineId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Wine getWine() {
-		return wine;
-	}
-
-	public void setWine(Wine wine) {
-		this.wine = wine;
+	public void setWineId(int wineId) {
+		this.wineId = wineId;
 	}
 
 	public Double getRating() {
@@ -244,4 +212,4 @@ public class Review {
 	
 	
 	
-}
+}	

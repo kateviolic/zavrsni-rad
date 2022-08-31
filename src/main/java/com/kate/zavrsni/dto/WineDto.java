@@ -8,8 +8,9 @@ public class WineDto {
 	private String type;
 	private String position;
 	private String sweetness;
+	private Double rating = 0.0;
 	
-	public WineDto(String winery, String variety, int year, String type, String position, String sweetness) {
+	public WineDto(String winery, String variety, int year, String type, String position, String sweetness, Double rating) {
 		super();
 		this.winery = winery;
 		this.variety = variety;
@@ -17,6 +18,7 @@ public class WineDto {
 		this.type = type;
 		this.position = position;
 		this.sweetness = sweetness;
+		this.rating = rating;
 	}
 
 	public WineDto() {
@@ -69,6 +71,14 @@ public class WineDto {
 
 	public void setSweetness(String sweetness) {
 		this.sweetness = sweetness;
+	}
+
+	public Double getRating() {
+		return rating;
+	}
+
+	public void setRating(Double rating) {
+		this.rating = rating;
 	}
 	
 	
