@@ -53,7 +53,7 @@
 	<form class="form-check  my-2 my-lg-0" th:object="${wine}" th:action="@{/wine/save}" method="post">
 			<div class="container px-4 px-lg-5 my-5">
 				<label for="name">Input the name of your wine:</label>&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="text" id="name" name="name" th:field="*{name}"/>
+				<input type="text" id="name" name="name" th:field="*{name}" required autofocus="autofocus" />
 				<p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}" style="color:red;" /><br><br>
 			
 				<label for="variety">Choose the variety:</label>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -144,7 +144,7 @@
 				</select><br><br>
 				
 				<label for="picture">Please provide a link of a picture of your wine: </label>
-				​<textarea id="txtArea" rows="1" cols="160" input type="text" th:field= "*{picture}"></textarea><br><br>
+				​<textarea id="txtArea" rows="1" cols="160" input type="text" th:field= "*{picture}" required autofocus="autofocus" ></textarea><br><br>
 						
 				<input type="hidden" id="id" name="id" value="${id}" th:field="*{id}">
 				
