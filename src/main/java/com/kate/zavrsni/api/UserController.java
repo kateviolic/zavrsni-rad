@@ -135,31 +135,26 @@ public class UserController {
 		User currentUser = wineService.getUser();
 		model.addAttribute("user", currentUser);
 
-		List<Review> reviews = new ArrayList<>();		
-		List<Review> sortedReviews = reviewRepository.findAll();
+		List<Review> reviews = new ArrayList<>();
+		List<Wine> wines = new ArrayList<>();		
+		List<Wine> sortedWines = wineRepository.findAll();
 		
-		if(sort.equals("usernameAsc")) 
-			sortedReviews = reviewRepository.findAll(Sort.by(Sort.Direction.ASC, "user.username"));
-		if(sort.equals("usernameDesc")) 
-			sortedReviews = reviewRepository.findAll(Sort.by(Sort.Direction.DESC, "user.username"));
 		if(sort.equals("wineAsc")) 
-			sortedReviews = reviewRepository.findAll(Sort.by(Sort.Direction.ASC, "wine.name"));
+			sortedWines = wineRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
 		if(sort.equals("wineDesc")) 
-			sortedReviews = reviewRepository.findAll(Sort.by(Sort.Direction.DESC, "wine.name"));
-		if(sort.equals("dateAsc")) 
-			sortedReviews = reviewRepository.findAll(Sort.by(Sort.Direction.ASC, "date"));
-		if(sort.equals("dateDesc")) 
-			sortedReviews = reviewRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
+			sortedWines = wineRepository.findAll(Sort.by(Sort.Direction.DESC, "name"));
 		if(sort.equals("ratingAsc")) 
-			sortedReviews = reviewRepository.findAll(Sort.by(Sort.Direction.ASC, "rating"));
+			sortedWines = wineRepository.findAll(Sort.by(Sort.Direction.DESC, "rating"));
 		if(sort.equals("ratingDesc")) 
-			sortedReviews = reviewRepository.findAll(Sort.by(Sort.Direction.DESC, "rating"));
+			sortedWines = wineRepository.findAll(Sort.by(Sort.Direction.ASC, "rating"));
 		
-		for (int i = 0; i < sortedReviews.size(); i++) {
-			if (currentUser.getId() == sortedReviews.get(i).getWine().getOwner().getId())
-				reviews.add(sortedReviews.get(i));
+		for (int i = 0; i < sortedWines.size(); i++) {
+			if (currentUser.getId() == sortedWines.get(i).getOwner().getId()) {
+				wines.add(sortedWines.get(i));
+				reviews.addAll(sortedWines.get(i).getReviews());
+			}
 		}
-
+		
 		LocalDate todayDate = LocalDate.now();
 		LocalDate monthThis = LocalDate.of(todayDate.getYear(), todayDate.getMonth(), 01);
 		LocalDate monthPrevious;
@@ -194,7 +189,7 @@ public class UserController {
 		model.addAttribute("previousMonth", Math.round(previousMonth*100.0)/100.0);
 		
 		
-		model.addAttribute("reviews", reviews);
+		model.addAttribute("wines", wines);
 		
 		return "statistics";
 	}

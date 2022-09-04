@@ -2,12 +2,7 @@
 <html xmlns:th="http://www.tymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<span th:if="${profil == true}">
-	<title th:text = "${user.firstName + ' ' + user.lastName}"></title>
-</span>
-<span th:if="${profil == false}">
-	<title th:text = "${winery.firstName + ' ' + winery.lastName}"></title>
-</span>
+<title>Statistics</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
 	crossorigin="anonymous">
@@ -67,19 +62,7 @@
 		<table style="margin-left: auto;  margin-right: auto; width: 80%">
 			<thead>
 				<tr>
-					<form class="form-inline my-2 my-lg-0" th:object="${sort}" th:action="@{/profile/statistics}"  method="get">
-					<th> USERNAME 
-						<button type="submit" class="btn btn-light" th:name="sort" th:value="usernameAsc">
-	   						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
-	 							<path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
-							</svg>
-	   					</button>
-	   					<button type="submit" class="btn btn-light" th:name="sort" th:value="usernameDesc">
-	   						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
-								<path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
-						</svg>
-	   					</button>
-					</th>
+					<form class="form-inline my-2 my-lg-0" th:object="${sort}" th:action="@{/profile/statistics}"  method="get">>
 					<th> WINE 
 						<button type="submit" class="btn btn-light" th:name="sort" th:value="wineAsc">
 	   						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
@@ -87,18 +70,6 @@
 							</svg>
 	   					</button>
 	   					<button type="submit" class="btn btn-light" th:name="sort" th:value="wineDesc">
-	   						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
-								<path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
-						</svg>
-	   					</button>
-					</th>
-					<th> DATE 
-						<button type="submit" class="btn btn-light" th:name="sort" th:value="dateAsc">
-	   						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
-	 							<path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
-							</svg>
-	   					</button>
-	   					<button type="submit" class="btn btn-light" th:name="sort" th:value="dateDesc">
 	   						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
 								<path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
 						</svg>
@@ -121,13 +92,11 @@
 			</thead>
 			<tbody>
 				<tr style="height: 10px !important;">
-					<td colspan="4"></td>
+					<td colspan="2"></td>
 				</tr>
-				<tr th:each = "review: ${reviews}" >
-			      	<td th:text = "${review.user.username}" ></td>
-					<td><a th:href="@{/wine/{id}(id=${review.wine.id})}" th:text = "${review.wine.name}" ></a></td>
-					<td th:text = "${review.date}" ></td>
-					<td th:text = "${review.rating}" ></td>
+				<tr th:each = "wine: ${wines}" >
+					<td><a th:href="@{/wine/{id}(id=${wine.id})}" th:text = "${wine.name}" ></a></td>
+					<td th:text = "${wine.rating}" ></td>
 		    	</tr>
 			</tbody>
 		
